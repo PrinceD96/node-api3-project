@@ -53,8 +53,9 @@ router.get("/", (req, res) => {
 		});
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validateUserId, (req, res) => {
 	// do your magic!
+	res.status(200).send(req.user);
 });
 
 router.get("/:id/posts", validateUserId, (req, res) => {

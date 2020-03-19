@@ -12,12 +12,13 @@ router.get("/", (req, res) => {
 			res.status(200).json(posts);
 		})
 		.catch(error => {
-			res.status(404).json({ message: "Could not found any posts" });
+			res.status(404).json({ message: "Could not found any posts", error });
 		});
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validatePostId, (req, res) => {
 	// do your magic!
+	res.status(200).json(req.post);
 });
 
 router.delete("/:id", (req, res) => {

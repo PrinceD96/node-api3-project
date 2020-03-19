@@ -9,7 +9,9 @@ export const getUsers = () => dispatch => {
 	axios
 		.get("http://localhost:4000/users")
 		.then(res => {
-			dispatch({ type: GET_USERS_SUCCESS, payload: res.data });
+			setTimeout(() => {
+				dispatch({ type: GET_USERS_SUCCESS, payload: res.data });
+			}, 1000);
 		})
 		.catch(error => {
 			dispatch({ type: GET_USERS_FAILURE, payload: error });

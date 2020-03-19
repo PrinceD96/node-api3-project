@@ -5,8 +5,18 @@ const postDb = require("../posts/postDb");
 
 const router = express.Router();
 
-router.post("/", (req, res) => {
+router.post("/", validateUser, (req, res) => {
 	// do your magic!
+	const user = req.body;
+
+	userDb
+		.insert(user)
+		.then(user => res.status(201).json(user))
+		.catch(error => {
+			res
+				.status(500)
+				.json({ message: "Error adding user to the database", error });
+		});
 });
 
 router.post("/:id/posts", (req, res) => {

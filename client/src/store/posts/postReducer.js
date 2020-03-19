@@ -1,5 +1,7 @@
 const initialState = {
-	posts: []
+	posts: [],
+	isLoading: false,
+	error: null
 };
 
 const postReducer = (state = initialState, action) => {

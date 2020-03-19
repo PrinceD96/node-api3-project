@@ -9,12 +9,12 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./store/rootReducer";
 
-const enhancers = compose(
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-	applyMiddleware(thunk)
-);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, enhancers);
+const store = createStore(
+	rootReducer,
+	composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
 	<Provider store={store}>

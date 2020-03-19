@@ -10,10 +10,8 @@ export const getUsers = () => dispatch => {
 		.get("http://localhost:4000/users")
 		.then(res => {
 			dispatch({ type: GET_USERS_SUCCESS, payload: res.data });
-			console.log(res.data);
 		})
 		.catch(error => {
 			dispatch({ type: GET_USERS_FAILURE, payload: error });
-			console.log(error);
 		});
 };

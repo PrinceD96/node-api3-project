@@ -6,6 +6,14 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
 	// do your magic!
+	postDb
+		.get()
+		.then(posts => {
+			res.status(200).json(posts);
+		})
+		.catch(error => {
+			res.status(404).json({ message: "Could not found any posts" });
+		});
 });
 
 router.get("/:id", (req, res) => {

@@ -89,8 +89,21 @@ router.delete("/:id", validateUserId, (req, res) => {
 		});
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", validateUserId, validateUser, (req, res) => {
 	// do your magic!
+	const { id } = req.params;
+	const updatedUser = req.body;
+
+	userDb
+		.update(id, updatedUser)
+		.then(updated => {
+			updated
+				? res.status(200).json(updatedUser)
+				: res.status(500).json({ message: "Error retrieving updated user" });
+		})
+		.catch(error => {
+			res.status(500).json({ message: "Error updating the user", error });
+		});
 });
 
 //custom middleware

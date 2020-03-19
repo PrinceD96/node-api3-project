@@ -74,8 +74,19 @@ router.get("/:id/posts", validateUserId, (req, res) => {
 		});
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", validateUserId, (req, res) => {
 	// do your magic!
+	const { id } = req.params;
+	userDb
+		.remove(id)
+		.then(deleted => {
+			deleted ? res.status(200).end() : null;
+		})
+		.catch(error => {
+			res
+				.status(500)
+				.json({ messsage: "Error removing the user from the database", error });
+		});
 });
 
 router.put("/:id", (req, res) => {

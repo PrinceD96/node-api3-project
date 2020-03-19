@@ -6,7 +6,7 @@ const userRouter = require("./users/userRouter");
 const cors = require("cors");
 
 server.use(express.json());
-// server.use(cors());
+server.use(cors());
 server.use(logger);
 server.use("/users", userRouter);
 

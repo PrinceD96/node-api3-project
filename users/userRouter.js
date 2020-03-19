@@ -19,8 +19,21 @@ router.post("/", validateUser, (req, res) => {
 		});
 });
 
-router.post("/:id/posts", (req, res) => {
+router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
 	// do your magic!
+	const user_id = req.params.id;
+	const post = { ...req.body, user_id };
+
+	postDb
+		.insert(post)
+		.then(post => {
+			res.status(201).json(post);
+		})
+		.catch(error => {
+			res
+				.status(500)
+				.json({ message: "Error adding post to the database", error });
+		});
 });
 
 router.get("/", (req, res) => {
@@ -31,7 +44,7 @@ router.get("/:id", (req, res) => {
 	// do your magic!
 });
 
-router.get("/:id/posts", (req, res) => {
+router.get("/:id/posts", validateUserId, (req, res) => {
 	// do your magic!
 });
 
@@ -76,13 +89,12 @@ function validateUser(req, res, next) {
 function validatePost(req, res, next) {
 	// do your magic!
 	const { body } = req;
-	postDb.insert(body).then(post => {
-		!body
-			? res.status(400).json({ message: "missing post data" })
-			: !body.text
-			? res.status(400).json({ message: "missing required text field" })
-			: next();
-	});
+
+	!body
+		? res.status(400).json({ message: "missing post data" })
+		: !body.text
+		? res.status(400).json({ message: "missing required text field" })
+		: next();
 }
 
 module.exports = router;

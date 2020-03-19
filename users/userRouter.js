@@ -59,6 +59,18 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/posts", validateUserId, (req, res) => {
 	// do your magic!
+	const userId = req.params.id;
+
+	userDb
+		.getUserPosts(userId)
+		.then(posts => {
+			!posts.length
+				? res.status(404).json({ message: "No posts found for this user" })
+				: res.status(200).send(posts);
+		})
+		.catch(error => {
+			res.status(500).json({ message: error });
+		});
 });
 
 router.delete("/:id", (req, res) => {

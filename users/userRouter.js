@@ -38,6 +38,19 @@ router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
 
 router.get("/", (req, res) => {
 	// do your magic!
+	userDb
+		.get()
+		.then(users => {
+			users
+				? res.status(200).send(users)
+				: res.status(404).json({ message: "no users found" });
+		})
+		.catch(error => {
+			res
+				.status(500)
+				.json({ message: "There was an error retrieving the users" });
+			console.log(error);
+		});
 });
 
 router.get("/:id", (req, res) => {

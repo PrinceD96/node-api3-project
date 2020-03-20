@@ -65,7 +65,7 @@ const Users = () => {
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
 								<div>
-									<Typography>
+									<Typography color='error'>
 										<>Posts:</>
 									</Typography>
 									<br />

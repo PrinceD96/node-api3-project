@@ -9,7 +9,6 @@ export const getPosts = userId => dispatch => {
 	axios
 		.get(`http://localhost:4000/users/${userId}/posts`)
 		.then(res => {
-			console.log(res);
 			dispatch({ type: GET_POSTS_SUCCESS, payload: res.data });
 		})
 		.catch(error => {

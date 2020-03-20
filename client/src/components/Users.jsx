@@ -34,10 +34,6 @@ const Users = () => {
 
 	return (
 		<>
-			<button onClick={() => dispatch(getPosts(1))}>Posts</button>
-			{posts.map(post => (
-				<p>{post.text}</p>
-			))}
 			<Button
 				onClick={() => dispatch(getUsers())}
 				variant='contained'
@@ -56,30 +52,31 @@ const Users = () => {
 					/>
 				</>
 			) : (
-				<>
-					<div className='users__container'>
-						{users.map(user => (
-							<>
-								{/* <p key={user.id}>{user.name}</p> */}
-
-								<ExpansionPanel>
-									<ExpansionPanelSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls='panel1a-content'
-										id='panel1a-header'
-									>
-										<Typography className={classes.heading}>
-											{user.name}
-										</Typography>
-									</ExpansionPanelSummary>
-									<ExpansionPanelDetails>
-										<Typography>Posts</Typography>
-									</ExpansionPanelDetails>
-								</ExpansionPanel>
-							</>
-						))}
-					</div>
-				</>
+				<div className='users__container'>
+					{users.map(user => (
+						<ExpansionPanel key={user.id}>
+							<ExpansionPanelSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls='panel1a-content'
+								id='panel1a-header'
+								onClick={() => dispatch(getPosts(user.id))}
+							>
+								<Typography className={classes.heading}>{user.name}</Typography>
+							</ExpansionPanelSummary>
+							<ExpansionPanelDetails>
+								<div>
+									<Typography>
+										<>Posts:</>
+									</Typography>
+									<br />
+									{posts.map(post => (
+										<Typography key={post.id}>"{post.text}"</Typography>
+									))}
+								</div>
+							</ExpansionPanelDetails>
+						</ExpansionPanel>
+					))}
+				</div>
 			)}
 		</>
 	);

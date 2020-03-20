@@ -10,9 +10,7 @@ export const getPosts = userId => dispatch => {
 		.get(`http://localhost:4000/users/${userId}/posts`)
 		.then(res => {
 			console.log(res);
-			setTimeout(() => {
-				dispatch({ type: GET_POSTS_SUCCESS, payload: res.data });
-			}, 1000);
+			dispatch({ type: GET_POSTS_SUCCESS, payload: res.data });
 		})
 		.catch(error => {
 			dispatch({ type: GET_POSTS_FAILURE, payload: error });

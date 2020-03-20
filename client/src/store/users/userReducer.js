@@ -19,7 +19,7 @@ const userReducer = (state = initialState, action) => {
 				users: action.payload,
 				isLoading: false
 			};
-		case ACTIONS.GET_USERS_START:
+		case ACTIONS.GET_USERS_FAILURE:
 			return {
 				...state,
 				isLoading: false,

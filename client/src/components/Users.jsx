@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "../store/users/actions";
+import { getPosts } from "../store/posts/actions";
 import Loader from "react-loader-spinner";
 import Button from "@material-ui/core/Button";
 
@@ -20,13 +21,23 @@ const useStyles = makeStyles(theme => ({
 
 const Users = () => {
 	const dispatch = useDispatch();
+
+	// USERS
 	const users = useSelector(state => state.users.users);
 	const isLoading = useSelector(state => state.users.isLoading);
+
+	// POSTS
+	const posts = useSelector(state => state.posts.posts);
+	console.log("POSTS", posts);
 
 	const classes = useStyles();
 
 	return (
 		<>
+			<button onClick={() => dispatch(getPosts(1))}>Posts</button>
+			{posts.map(post => (
+				<p>{post.text}</p>
+			))}
 			<Button
 				onClick={() => dispatch(getUsers())}
 				variant='contained'

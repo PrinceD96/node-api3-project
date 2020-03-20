@@ -5,9 +5,16 @@ body {
 
 .App {
 	text-align: center;
-	margin-top: 50px;
+
+	width: 1000px;
+	margin: 50px auto;
 }
 
 .fetch_users_btn {
 	margin-bottom: 50px;
+}
+
+.users__container {
+	margin: 40px auto;
+	width: 600px;
 }

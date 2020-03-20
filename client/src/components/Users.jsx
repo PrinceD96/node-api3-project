@@ -4,10 +4,26 @@ import { getUsers } from "../store/users/actions";
 import Loader from "react-loader-spinner";
 import Button from "@material-ui/core/Button";
 
+import { makeStyles } from "@material-ui/core/styles";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
+const useStyles = makeStyles(theme => ({
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		fontWeight: theme.typography.fontWeightRegular
+	}
+}));
+
 const Users = () => {
 	const dispatch = useDispatch();
 	const users = useSelector(state => state.users.users);
 	const isLoading = useSelector(state => state.users.isLoading);
+
+	const classes = useStyles();
 
 	return (
 		<>
@@ -30,9 +46,28 @@ const Users = () => {
 				</>
 			) : (
 				<>
-					{users.map(user => (
-						<p>{user.name}</p>
-					))}
+					<div className='users__container'>
+						{users.map(user => (
+							<>
+								{/* <p key={user.id}>{user.name}</p> */}
+
+								<ExpansionPanel>
+									<ExpansionPanelSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls='panel1a-content'
+										id='panel1a-header'
+									>
+										<Typography className={classes.heading}>
+											{user.name}
+										</Typography>
+									</ExpansionPanelSummary>
+									<ExpansionPanelDetails>
+										<Typography>Posts</Typography>
+									</ExpansionPanelDetails>
+								</ExpansionPanel>
+							</>
+						))}
+					</div>
 				</>
 			)}
 		</>
